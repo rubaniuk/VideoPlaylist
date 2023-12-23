@@ -6,16 +6,29 @@
 ::
 @echo off
 setlocal EnableDelayedExpansion
-:: TODO: do robust input parameter validation
 
-:: TODO: get path to Photo/Video from command line and assign it to outputFile
+if "%~1"=="" (
+    echo No input parameters.
+    call :foo_params
+    exit /b
+)
 
-:: TODO: check if given path exists
+if "%~2" neq "" (
+    echo Too many input parameters
+    call :foo_params
+    exit /b
+)
+
+if exist "%~1" (
+    echo File "%~1" alredy exists. Enter different file name.
+    call :foo_params
+    exit /b    
+) 
+
+set outputFile="%~1"
+
 
 :: TODO: temporarily PUSHD into that directory
-
-
-set outputFile=Playlist.wpl
 
 echo ^<?xml version="1.0"?^> > %outputFile%
 echo ^<smil^> >> %outputFile%
@@ -35,9 +48,13 @@ echo        ^</seq^> >> %outputFile%
 echo    ^</body^> >> %outputFile%
 echo ^</smil^> >> %outputFile%
 
-
-
 :: TODO: POPD from new working directory
 
 endlocal
+exit /b 0
+
+
+:foo_params
+echo Usage:
+echo WPLGenerator.cmd ^<playlist name^>
 exit /b
