@@ -1,6 +1,7 @@
 # VideoPlaylist
 
 VideoPlaylist is a Windows tool that will create a playlist of video files. You can play that playlist in popular media players like VLC, Windows Media Player and others. 
+
 Run VideoPlaylist on the command line:
 > VideoPlaylist.cmd <Path to the folder with videos>  <Playlist file name>
 
