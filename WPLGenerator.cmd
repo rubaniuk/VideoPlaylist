@@ -1,7 +1,7 @@
 :: WPLGenerator - Playlist generator for Microsoft Windows Media Player.
 ::
 :: Reference:
-:: https://ss64.com/nt/for_d.html
+:: https://ss64.com/nt/for_cmd.html
 :: https://ss64.com/nt/delayedexpansion.html
 :: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/call#batch-parameters
 ::
