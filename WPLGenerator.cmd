@@ -50,17 +50,26 @@ if exist "%~2" (
 echo ^<?xml version="1.0"?^> > %outputFile%
 echo ^<smil^> >> %outputFile%
 echo    ^<head^> >> %outputFile%
-echo        ^<meta name="Generator" content="WPL Generator v1.0"/^> >> %outputFile%
+echo        ^<meta name="Generator" content="WPL Generator v1.1"/^> >> %outputFile%
 :: TODO: add ItemCount, i.e. <meta name="ItemCount" content="106"/>
 echo        ^<title^>%outputFile%^</title^> >> %outputFile%
 echo    ^</head^> >> %outputFile%
 echo    ^<body^> >> %outputFile%
 echo        ^<seq^> >> %outputFile%
 
+:: prepare variables for '&' replacement in final XML:
+set "find=&"
+set "replace=&amp;"
+
 for /f "tokens=*" %%G in ('dir /b /s *.mp4 *.mov') do (
     set pathToConvert=%%G
-    set relativePath=!pathToConvert:*%referencePath%=!
-    echo        ^<media src="!relativePath!"/^> >> %outputFile% 
+    set _relativePath=!pathToConvert:*%referencePath%=!
+
+    :: replace all occurances of '&' with '&amp;'. Note that double quotes are critical here:
+    call set "_relativePath=%%_relativePath:!find!=!replace!%%"
+
+    :: write final relative path into XML:
+    echo        ^<media src="!_relativePath!"/^> >> %outputFile% 
 )
 
 echo        ^</seq^> >> %outputFile%
