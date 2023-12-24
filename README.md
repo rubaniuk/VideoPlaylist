@@ -1,6 +1,7 @@
 # VideoPlaylist
 
-Playlist generator for video files. Usage is rather straightforward:
+VideoPlaylist is a Windows tool that will create a playlist of video files. You can play that playlist in popular media players like VLC, Windows Media Player and others. 
+Run VideoPlaylist on the command line:
 > VideoPlaylist.cmd <Path to the folder with videos>  <Playlist file name>
 
 For example:
@@ -8,4 +9,4 @@ For example:
 
 VideoPlaylist script will find all video files in the path "D:\photos\2023\" and save a playlist in that folder.
 
-Note that WPL is supported by other popular video players, i.e. VLC.
+Thanks for using VideoPlaylist!
