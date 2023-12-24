@@ -1,4 +1,4 @@
-:: WPLGenerator - Playlist generator for Microsoft Windows Media Player.
+:: VideoPlaylist - Playlist generator for Microsoft Windows Media Player.
 ::
 :: Reference:
 :: https://ss64.com/nt/for_cmd.html
@@ -68,7 +68,7 @@ for /f "tokens=*" %%G in ('dir /b /s *.mp4 *.mov') do (
     :: replace all occurances of '&' with '&amp;'. Note that double quotes are critical here:
     call set "_relativePath=%%_relativePath:!find!=!replace!%%"
 
-    :: write final relative path into XML:
+    :: write processed relative path into XML:
     echo        ^<media src="!_relativePath!"/^> >> %outputFile% 
 )
 
@@ -85,5 +85,5 @@ exit /b %exit_code_success%
 
 :foo_params
 echo Usage:
-echo WPLGenerator.cmd ^<Path to the folder with videos^>  ^<Playlist file name^>
+echo VideoPlaylist.cmd ^<Path to the folder with videos^>  ^<Playlist file name^>
 exit /b
