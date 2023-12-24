@@ -1,8 +1,6 @@
 # VideoPlaylist
 
-Playlist generator for video files. 
-
-Usage is rather straightforward:
+Playlist generator for video files. Usage is rather straightforward:
 > VideoPlaylist.cmd <Path to the folder with videos>  <Playlist file name>
 
 For example:
