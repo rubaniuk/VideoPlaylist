@@ -49,6 +49,7 @@ echo ^<?xml version="1.0"?^> > %outputFile%
 echo ^<smil^> >> %outputFile%
 echo    ^<head^> >> %outputFile%
 echo        ^<meta name="Generator" content="WPL Generator v1.0"/^> >> %outputFile%
+:: TODO: add ItemCount, i.e. <meta name="ItemCount" content="106"/>
 echo        ^<title^>%outputFile%^</title^> >> %outputFile%
 echo    ^</head^> >> %outputFile%
 echo    ^<body^> >> %outputFile%
