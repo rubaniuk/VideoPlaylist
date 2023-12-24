@@ -3,33 +3,48 @@
 :: Reference:
 :: https://ss64.com/nt/for_d.html
 :: https://ss64.com/nt/delayedexpansion.html
+:: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/call#batch-parameters
 ::
 @echo off
 setlocal EnableDelayedExpansion
 
-if "%~1"=="" (
-    echo No input parameters.
+set exit_code_success=0
+set exit_code_error_input_params=1
+
+if "%~2"=="" (
+    echo Incorrect input parameters
     call :foo_params
-    exit /b
+    exit /b %exit_code_error_input_params%
 )
 
-if "%~2" neq "" (
+if "%~3" neq "" (
     echo Too many input parameters
     call :foo_params
-    exit /b
+    exit /b %exit_code_error_input_params%
 )
 
-if exist "%~1" (
-    echo File "%~1" alredy exists. Enter different file name.
+if not exist "%~1" (
+    echo Folder "%~1" doesn't exist. Enter valid folder path.
     call :foo_params
-    exit /b    
+    exit /b %exit_code_error_input_params%
 ) 
 
-set outputFile="%~1"
+set workingDir="%~1"
+set outputFile="%~2"
 
+:: don't forget to POPD when script exits!
+pushd %workingDir%
 
-:: TODO: temporarily PUSHD into that directory
+if exist "%~2" (
+    echo File "%~2" alredy exists. Enter different file name.
+    call :foo_params
 
+    :: popd from %workingDir%
+    popd
+    exit /b %exit_code_error_input_params%
+) 
+
+:: Generate new WPL playlist file XML:
 echo ^<?xml version="1.0"?^> > %outputFile%
 echo ^<smil^> >> %outputFile%
 echo    ^<head^> >> %outputFile%
@@ -48,13 +63,14 @@ echo        ^</seq^> >> %outputFile%
 echo    ^</body^> >> %outputFile%
 echo ^</smil^> >> %outputFile%
 
-:: TODO: POPD from new working directory
-
 endlocal
-exit /b 0
+
+:: popd from %workingDir%
+popd
+exit /b %exit_code_success%
 
 
 :foo_params
 echo Usage:
-echo WPLGenerator.cmd ^<playlist name^>
+echo WPLGenerator.cmd ^<Path to the folder with videos^>  ^<Playlist file name^>
 exit /b
