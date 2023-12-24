@@ -57,7 +57,7 @@ echo    ^</head^> >> %outputFile%
 echo    ^<body^> >> %outputFile%
 echo        ^<seq^> >> %outputFile%
 
-for /f "tokens=*" %%G in ('dir /b /s *.mp4') do (
+for /f "tokens=*" %%G in ('dir /b /s *.mp4 *.mov') do (
     set pathToConvert=%%G
     set relativePath=!pathToConvert:*%referencePath%=!
     echo        ^<media src="!relativePath!"/^> >> %outputFile% 
