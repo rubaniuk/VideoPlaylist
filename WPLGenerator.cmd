@@ -31,6 +31,8 @@ if not exist "%~1" (
 
 set workingDir="%~1"
 set outputFile="%~2"
+set referencePath=%~1
+
 
 :: don't forget to POPD when script exits!
 pushd %workingDir%
@@ -55,9 +57,10 @@ echo    ^</head^> >> %outputFile%
 echo    ^<body^> >> %outputFile%
 echo        ^<seq^> >> %outputFile%
 
-for /f "tokens=*" %%G in ('dir /b /s *.mp4 *.mov') do (
-    :: TODO make %%G into a relative path so that when this folder is copied, playlist can be used
-    echo        ^<media src="%%G"/^> >> %outputFile% 
+for /f "tokens=*" %%G in ('dir /b /s *.mp4') do (
+    set pathToConvert=%%G
+    set relativePath=!pathToConvert:*%referencePath%=!
+    echo        ^<media src="!relativePath!"/^> >> %outputFile% 
 )
 
 echo        ^</seq^> >> %outputFile%
