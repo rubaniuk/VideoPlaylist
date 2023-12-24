@@ -50,7 +50,7 @@ if exist "%~2" (
 echo ^<?xml version="1.0"?^> > %outputFile%
 echo ^<smil^> >> %outputFile%
 echo    ^<head^> >> %outputFile%
-echo        ^<meta name="Generator" content="WPL Generator v1.1"/^> >> %outputFile%
+echo        ^<meta name="Generator" content="WPL Generator v1.2"/^> >> %outputFile%
 :: TODO: add ItemCount, i.e. <meta name="ItemCount" content="106"/>
 echo        ^<title^>%outputFile%^</title^> >> %outputFile%
 echo    ^</head^> >> %outputFile%
@@ -61,7 +61,7 @@ echo        ^<seq^> >> %outputFile%
 set "find=&"
 set "replace=&amp;"
 
-for /f "tokens=*" %%G in ('dir /b /s *.mp4 *.mov') do (
+for /f "tokens=*" %%G in ('dir /b /s *.webm, *.mkv, *.vob, *.ogv, *.ogg, *.drc, *.gifv, *.mng, *.avi, *.MTS, *.M2TS, *.TS, *.mov, *.qt, *.wmv, *.yuv, *.rm, *.rmvb, *.viv, *.asf, *.amv, *.mp4, *.m4p, *.m4v, *.mpg, *.mp2, *.mpeg, *.mpe, *.mpv, *.m2v, *.svi, *.3gp, *.3g2, *.mxf, *.roq, *.nsv, *.flv, *.f4v, *.f4p, *.f4a, *.f4b') do (
     set pathToConvert=%%G
     set _relativePath=!pathToConvert:*%referencePath%=!
 
