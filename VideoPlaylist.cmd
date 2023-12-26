@@ -87,6 +87,9 @@ echo Enjoy your playlist!
 endlocal
 :: popd from %workingDir%
 popd
+
+echo Video Playlist "%outputFile%" was successfully created in "workingDir".
+echo Enjoy your playlist!
 exit /b %exit_code_success%
 
 
