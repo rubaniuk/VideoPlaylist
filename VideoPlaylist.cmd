@@ -70,6 +70,8 @@ for /f "tokens=*" %%G in ('dir /b /s /on ^
     :: replace all occurances of '&' with '&amp;'. Note that double quotes are critical here:
     call set "_relativePath=%%_relativePath:!find!=!replace!%%"
 
+    REM TODO: if  _relativePath doesn't end in '\' we should add it. This bug prevents WMP from opening the playlist.
+
     :: write processed relative path into XML:
     echo        ^<media src="!_relativePath!"/^> >> %outputFile% 
 )
@@ -82,6 +84,9 @@ endlocal
 
 :: popd from %workingDir%
 popd
+
+echo Video Playlist "%outputFile%" was successfully created in "workingDir".
+echo Enjoy your playlist!
 exit /b %exit_code_success%
 
 
