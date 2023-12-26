@@ -57,6 +57,8 @@ echo    ^</head^> >> %outputFile%
 echo    ^<body^> >> %outputFile%
 echo        ^<seq^> >> %outputFile%
 
+echo Generating playlist %outputFile%...
+
 :: prepare variables for '&' replacement in final XML:
 set "find=&"
 set "replace=&amp;"
@@ -70,6 +72,8 @@ for /f "tokens=*" %%G in ('dir /b /s /on ^
     :: replace all occurances of '&' with '&amp;'. Note that double quotes are critical here:
     call set "_relativePath=%%_relativePath:!find!=!replace!%%"
 
+    REM TODO: if  _relativePath doesn't end in '\' we should add it. This bug prevents WMP from opening the playlist.
+
     :: write processed relative path into XML:
     echo        ^<media src="!_relativePath!"/^> >> %outputFile% 
 )
@@ -78,8 +82,9 @@ echo        ^</seq^> >> %outputFile%
 echo    ^</body^> >> %outputFile%
 echo ^</smil^> >> %outputFile%
 
+echo Video Playlist %outputFile% was successfully created in %workingDir%.
+echo Enjoy your playlist!
 endlocal
-
 :: popd from %workingDir%
 popd
 exit /b %exit_code_success%
